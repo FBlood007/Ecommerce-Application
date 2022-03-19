@@ -9,6 +9,6 @@ Final Project - eStore
 ## User Side
 <img src="Images/image7.png" width="200"> <img src="Images/image11.png" width="200"> <img src="Images/image8.png" width="200">
 <br>
-<img src="Images/image10.png" width="200">  <img src="Images/image12.png" width="200"> <img src="Images/image9.png" width="200">  
+<img src="Images/image10.png" width="200">  <img src="Images/image12.png" width="200"> <img src="Images/image13.png" width="200">
 
  
