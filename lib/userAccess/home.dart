@@ -1,13 +1,11 @@
 import 'package:flutter/material.dart';
 
-import '../productsTypes/books.dart';
-import '../productsTypes/mobiles.dart';
-import '../productsTypes/toys.dart';
-import 'cart.dart';
+import '../firebaseConnection/productsDatabase.dart';
+import '../productsTypes/userCateData.dart';
 
 class Home extends StatefulWidget {
   Home({Key? key}) : super(key: key);
-
+  static List mobileData = [];
   @override
   State<Home> createState() => _HomeState();
 }
@@ -105,79 +103,99 @@ class _HomeState extends State<Home> {
   ];
 
   GlobalKey<ScaffoldState> sKey = GlobalKey<ScaffoldState>();
+  addData(category) {
 
+    setState(() {
+      //AllData.mobileData.clear();
+      MobileDatabase.data.forEach((element) {
+        if (element.values.contains(category)) {
+          Home.mobileData.add(element.cast());
+        }
+      });
+    });
+  }
   @override
   Widget build(BuildContext context) {
     List<Map> data = [
       {
         'item1': 'Mobiles',
         'image1': 'assets/mobile.png',
-        'onTap' : (){
+        'onTap': () {
+          addData('mobiles');
           Navigator.push(context, MaterialPageRoute(builder: (context) =>
-              Mobiles()
+              UserCategData(
+                name: 'Mobiles',
+              )
           ),);
         }
       },
       {
         'image1': 'assets/book.png',
         'item1': 'Books',
-        'onTap' : (){
+        'onTap': () {
+          addData('books');
           Navigator.push(context, MaterialPageRoute(builder: (context) =>
-              Books()
+              UserCategData(name: 'Books',)
           ),);
         }
       },
       {
         'image1': 'assets/toys.png',
         'item1': 'Toys',
-        'onTap' : (){
+        'onTap': () {
+          addData('toys');
           Navigator.push(context, MaterialPageRoute(builder: (context) =>
-              Toys()
+              UserCategData(name: 'Toys',)
           ),);
         }
       },
       {
         'image1': 'assets/fruit.png',
         'item1': 'Fresh',
-        'onTap' : (){
+        'onTap': () {
+          addData('fresh');
           Navigator.push(context, MaterialPageRoute(builder: (context) =>
-              Mobiles()
+              UserCategData(name: 'Fresh',)
           ),);
         }
       },
       {
         'image1': 'assets/fashion.png',
         'item1': 'Fashion',
-        'onTap' : (){
+        'onTap': () {
+          addData('fashion');
           Navigator.push(context, MaterialPageRoute(builder: (context) =>
-              Mobiles()
+              UserCategData(name: 'Fashion',)
           ),);
         }
       },
       {
         'image1': 'assets/appliances.png',
         'item1': 'Appliances',
-        'onTap' : (){
+        'onTap': () {
+          addData('appliances');
           Navigator.push(context, MaterialPageRoute(builder: (context) =>
-              Mobiles()
+              UserCategData(name: 'Appliances',)
           ),);
         }
       },
       {
         'image1': 'assets/essentials.png',
         'item1': 'Essentials',
-        'onTap' : (){
+        'onTap': () {
+          addData('essentials');
           Navigator.push(context, MaterialPageRoute(builder: (context) =>
-              Mobiles()
+              UserCategData(name: 'Essentials',)
           ),);
         }
       },
       {
         'image1': 'assets/pharma.png',
         'item1': 'Pharmacy',
-        'onTap' : (){
+        'onTap': () {
+          addData('pharmacy');
           Navigator.push(context, MaterialPageRoute(builder: (context) =>
-              Mobiles()
+              UserCategData(name: 'Pharmacy',)
           ),);
         }
       },
@@ -394,60 +412,6 @@ Widget offers({
   );
 }
 
-// Widget rest1({
-//   String name = '',
-//   String image = '',
-//   int rating = 1,
-//   String products = '',
-// }) {
-//   return Padding(
-//     padding: const EdgeInsets.all(5.0),
-//     child: Column(
-//       children: [
-//         Container(
-//           decoration: BoxDecoration(),
-//           child: Image.network(
-//             image,
-//             height: 100,
-//           ),
-//         ),
-//         const SizedBox(
-//           width: 10,
-//         ),
-//         Container(
-//           padding: const EdgeInsets.all(10),
-//           child: Column(
-//             crossAxisAlignment: CrossAxisAlignment.start,
-//             children: [
-//               Text(
-//                 name,
-//                 style: const TextStyle(
-//                   fontSize: 20,
-//                 ),
-//               ),
-//               Row(
-//                 children: [
-//                   for (int i = 0; i < rating; i++)
-//                     const Icon(
-//                       Icons.star,
-//                       size: 15,
-//                       color: Colors.red,
-//                     ),
-//                 ],
-//               ),
-//               Text(
-//                 products,
-//                 style: const TextStyle(
-//                   color: Colors.black54,
-//                 ),
-//               ),
-//             ],
-//           ),
-//         ),
-//       ],
-//     ),
-//   );
-// }
 Widget discounts({
   String image = '',
   String type = '',

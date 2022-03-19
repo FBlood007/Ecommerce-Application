@@ -10,7 +10,7 @@ class DataBase {
   static CollectionReference fireStore =
       FirebaseFirestore.instance.collection('users');
 
-  static Future insertData(String email, String pass) async {
+  static Future insertData(String email, String pass, String fullName,String mobile,String city) async {
     User? user = FirebaseAuth.instance.currentUser;
 
     await FirebaseFirestore.instance.collection('users').doc(user?.uid).set({
@@ -18,6 +18,9 @@ class DataBase {
       'pass': pass,
       'role': 'user',
       'key': user?.uid,
+      'fullName' : fullName,
+      'mobile':mobile,
+      'city':city,
     });
     selectData();
   }
@@ -30,7 +33,6 @@ class DataBase {
       selectData();
     });
   }
-
   static deleteData() {
     //print(';;;;;;;  $key');
     fireStore.doc().delete();

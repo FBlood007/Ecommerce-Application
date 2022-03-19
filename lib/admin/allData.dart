@@ -5,33 +5,140 @@ import '../homeScreen/homeScreen.dart';
 import '../loginSignup/loginPage.dart';
 import '../userAccess/home.dart';
 import 'addProduct.dart';
+import 'category/categoryData.dart';
 import 'editPage.dart';
 
 class AllData extends StatefulWidget {
   AllData({Key? key}) : super(key: key);
+
+  static List mobileData = [];
 
   @override
   State<AllData> createState() => _AllDataState();
 }
 
 class _AllDataState extends State<AllData> {
-
-  int currentIndex = 0;
   GlobalKey<ScaffoldState> sKey = GlobalKey<ScaffoldState>();
-  final pages = [
-    AllData(),
-    Home(),
-  ];
+
+  addData(category) {
+
+    setState(() {
+      //AllData.mobileData.clear();
+      MobileDatabase.data.forEach((element) {
+        if (element.values.contains(category)) {
+          AllData.mobileData.add(element.cast());
+        }
+      });
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
-
+    List<Map> data = [
+      {
+        'item1': 'Mobiles',
+        'image1': 'assets/mobile.png',
+        'onTap': () {
+          addData('mobiles');
+          Navigator.push(context, MaterialPageRoute(builder: (context) =>
+              CategoryData(
+                name: 'Mobile Category',categ :'mobiles'
+              )
+          ),);
+        }
+      },
+      {
+        'image1': 'assets/book.png',
+        'item1': 'Books',
+        'onTap': () {
+          addData('books');
+          Navigator.push(context, MaterialPageRoute(builder: (context) =>
+              CategoryData(name: 'Books Category',categ :'books')
+          ),);
+        }
+      },
+      {
+        'image1': 'assets/toys.png',
+        'item1': 'Toys',
+        'onTap': () {
+          addData('toys');
+          Navigator.push(context, MaterialPageRoute(builder: (context) =>
+              CategoryData(name: 'Toys Category',categ :'toys')
+          ),);
+        }
+      },
+      {
+        'image1': 'assets/fruit.png',
+        'item1': 'Fresh',
+        'onTap': () {
+          addData('fresh');
+          Navigator.push(context, MaterialPageRoute(builder: (context) =>
+              CategoryData(name: 'Fresh Category',categ :'fresh')
+          ),);
+        }
+      },
+      {
+        'image1': 'assets/fashion.png',
+        'item1': 'Fashion',
+        'onTap': () {
+          addData('fashion');
+          Navigator.push(context, MaterialPageRoute(builder: (context) =>
+              CategoryData(name: 'Fashion Category',categ :'fashion')
+          ),);
+        }
+      },
+      {
+        'image1': 'assets/appliances.png',
+        'item1': 'Appliances',
+        'onTap': () {
+          addData('appliances');
+          Navigator.push(context, MaterialPageRoute(builder: (context) =>
+              CategoryData(name: 'Appliances Category',categ :'appliances')
+          ),);
+        }
+      },
+      {
+        'image1': 'assets/essentials.png',
+        'item1': 'Essentials',
+        'onTap': () {
+          addData('essentials');
+          Navigator.push(context, MaterialPageRoute(builder: (context) =>
+              CategoryData(name: 'Essentials Category',categ :'essentials')
+          ),);
+        }
+      },
+      {
+        'image1': 'assets/pharma.png',
+        'item1': 'Pharmacy',
+        'onTap': () {
+          addData('pharmacy');
+          Navigator.push(context, MaterialPageRoute(builder: (context) =>
+              CategoryData(name: 'Pharmacy Category',categ :'pharmacy')
+          ),);
+        }
+      },
+    ];
     return SafeArea(
       child: Scaffold(
         key: sKey,
         appBar: AppBar(
           title: Text('Welcom Admin'),
           centerTitle: true,
-          leading: Icon(Icons.person),
+          leading: Row(
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(left:8.0),
+                child: GestureDetector(
+                    onTap: () {
+                      Navigator.push(context,
+                        MaterialPageRoute(builder: (context)=>
+                        HomeScreen())
+                      );
+                    },
+                    child: Text('To App')),
+              ),
+            ],
+          ),
           actions: [
             Padding(
               padding: const EdgeInsets.only(right: 20),
@@ -45,162 +152,76 @@ class _AllDataState extends State<AllData> {
           ],
         ),
 
-        body: currentIndex==0? Center(
-          child: ListView.builder(
-            padding: EdgeInsets.all(10),
-            //itemCount: mobileData.length,
-            itemCount: MobileDatabase.data.length,
-            itemBuilder: (context, index) =>
-                mobs(
-                  context,
-                  name: MobileDatabase.data[index]['name'],
-                  image: MobileDatabase.data[index]['image'],
-                  desc: MobileDatabase.data[index]['desc'],
-                  rating: MobileDatabase.data[index]['rating'],
-                  cost: MobileDatabase.data[index]['price'],
-                  key:MobileDatabase.data[index]['key'],
-                ),
-          ),
-        ) : pages[currentIndex],
-        floatingActionButton: FloatingActionButton(
-          onPressed: () {
-            Navigator.push(
-                context, MaterialPageRoute(builder: (context) => AddProduct()));
-          },
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: const [
-              Icon(Icons.add),
-              Text('Add'),
-            ],
-          ),
-          foregroundColor: Colors.white,
-        ),
-        bottomNavigationBar: BottomNavigationBar(
-          fixedColor: Colors.red,
-          iconSize: 30.0,
-          showUnselectedLabels: false,
-          selectedIconTheme:const IconThemeData(size: 35),
-          unselectedIconTheme: const IconThemeData(size: 25),
-          currentIndex: currentIndex,
-          items: const [
-            BottomNavigationBarItem(
-              label: 'Admin',
-              icon: Icon(Icons.person),
+        body: Center(
+          child: Padding(
+            padding: const EdgeInsets.all(15.0),
+            child: GridView.builder(
+              gridDelegate:
+              const SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 3,
+              ),
+              itemCount: data.length,
+              itemBuilder: (context, index) =>
+                  items(
+                    context,
+                    image1: data[index]['image1'],
+                    item1: data[index]['item1'],
+                    onTap: data[index]['onTap'],
+                  ),
             ),
-            BottomNavigationBarItem(
-              label: 'Home',
-              icon: Icon(Icons.home),
-            ),
-          ],
-          onTap: (index) {
-            setState(() {
-              currentIndex = index;
-            });
-          },
+          ),
         ),
+        // floatingActionButton: FloatingActionButton(
+        //   onPressed: () {
+        //     Navigator.push(
+        //         context, MaterialPageRoute(builder: (context) => AddProduct()));
+        //   },
+        //   child: Column(
+        //     mainAxisAlignment: MainAxisAlignment.center,
+        //     children: const [
+        //       Icon(Icons.add),
+        //       Text('Application'),
+        //     ],
+        //   ),
+        //   foregroundColor: Colors.white,
+        // ),
+
       ),
     );
   }
 }
 
-Widget mobs(context, {
-  String name = '',
-  String image = '', String rating = '',
-  String desc = '',
-  String cost = '',
-  String key = '',
-}) {
-  return Container(
-    padding: EdgeInsets.all(5),
-    height: 110,
-    child: Row(
-      crossAxisAlignment: CrossAxisAlignment.start,
+
+Widget items(
+    context, {
+      String image1 = '',
+      String item1 = '',
+      required void Function() onTap,
+    }) {
+  return Padding(
+    padding: const EdgeInsets.symmetric(horizontal: 15.0),
+    child: Column(
       children: [
-        Container(
-          decoration: BoxDecoration(),
-          child: Image.network(
-            image,
-          ),
-        ),
-        const SizedBox(
-          width: 10,
-        ),
-        Container(
+        GestureDetector(
+          onTap:  onTap,
+
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                name,
-                style: const TextStyle(
-                  fontSize: 20,
+              CircleAvatar(
+                child: Image.asset(
+                  image1,
+                  height: 50,
                 ),
-              ),
-              Row(
-                children: [
-                  for (int i = 0; i < int.parse(rating); i++)
-                    const Icon(
-                      Icons.star,
-                      size: 15,
-                      color: Colors.red,
-                    ),
-                ],
-              ),
-              Text(
-                desc,
-                maxLines: 1,
-                overflow: TextOverflow.fade,
-                style: const TextStyle(
-                  color: Colors.black54,
-                ),
-              ),
-              Text(
-                cost,
-                style: const TextStyle(
-                  color: Colors.black,
-                  fontSize: 15,
-                  fontWeight: FontWeight.bold,
-                ),
+                // backgroundColor: Colors.grey,
+                foregroundColor: Colors.black,
+                radius: 40,
               ),
               const SizedBox(
                 height: 5,
               ),
-              Row(
-                children: [
-                  GestureDetector(
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) =>
-                              ProductEdit(
-                                image: image,
-                                name: name,
-                                price: cost,
-                                desc: desc,
-                                rating: rating,
-                              ),
-                        ),
-                      );
-                    },
-                    child: const Text(
-                      'EDIT',
-                      style: TextStyle(color: Colors.red),
-                    ),
-                  ),
-                  const SizedBox(
-                    width: 20,
-                  ),
-                  GestureDetector(
-                    onTap: () {
-                      MobileDatabase.deleteData(key);
-                      },
-                    child: const Text(
-                      'DELETE',
-                      style: TextStyle(color: Colors.red),
-                    ),
-                  ),
-                ],
+              Text(
+                item1,
+                style: const TextStyle(fontSize: 13, color: Colors.black),
               ),
             ],
           ),

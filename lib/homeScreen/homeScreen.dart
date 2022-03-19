@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
-
-import '../userAccess/cart.dart';
+import 'package:flutterfinalproject/firebaseConnection/loginDatabase.dart';
+import 'package:flutterfinalproject/userAccess/cart2.dart';
 import '../userAccess/home.dart';
 import '../userAccess/uProfile.dart';
 
@@ -18,7 +18,8 @@ class _HomeScreenState extends State<HomeScreen> {
 
   final pages = [
     Home(),
-    Cart(),
+    // Cart(),
+    Cart2(),
   ];
   GlobalKey<ScaffoldState> sKey = GlobalKey<ScaffoldState>();
 
@@ -35,6 +36,7 @@ class _HomeScreenState extends State<HomeScreen> {
             Container(
               height: 80,
               child: AppBar(
+                backgroundColor: Colors.red,
                 leading: const Icon(Icons.home),
                 title: const Text('Home'),
 
@@ -144,9 +146,10 @@ class _HomeScreenState extends State<HomeScreen> {
                 SizedBox(width: 20.0),
                 GestureDetector(
                   onTap: (){
+                    print(DataBase.data);
                     Navigator.push(context, MaterialPageRoute(builder: (context)=> UserProfile()));
                   },
-                  child: Icon(
+                  child:const Icon(
                     Icons.person,
                     color: Colors.red,
                   ),

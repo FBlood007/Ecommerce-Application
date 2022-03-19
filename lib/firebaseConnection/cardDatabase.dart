@@ -1,49 +1,36 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
-class MobileDatabase {
+class CartDatabase {
   static List<Map> data = [];
 
   static Map mobs = {};
 
   static CollectionReference fireStore =
-      FirebaseFirestore.instance.collection('products');
+  FirebaseFirestore.instance.collection('cart');
 
   static Future insertData(String name, String price, String image, String desc,
-      String rating, String category,String quantity) async {
+     String quantity) async {
     String id = DateTime.now().toString();
 
-    await FirebaseFirestore.instance.collection('products').doc(id).set({
+    await FirebaseFirestore.instance.collection('cart').doc(id).set({
       'name': name,
       'price': price,
       'id': id,
       'image': image,
       'desc': desc,
-      'rating': rating,
-      'category': category,
       'quantity':quantity,
     });
     selectData();
   }
 
   static Future updateDate({
-    required String name,
-    required String price,
-    required String image,
-    required String desc,
-    required String category,
-    required String rating,
+    required String quantity,
     required String id,
   }) async {
 
-    await FirebaseFirestore.instance.collection('products').doc(id).update({
-      'name': name,
-      'price': price,
-      'id': id,
-      'image': image,
-      'desc': desc,
-      'rating': rating,
-      'category': category,
+    await FirebaseFirestore.instance.collection('cart').doc(id).update({
+      'quantity':quantity,
     });
     selectData();
   }

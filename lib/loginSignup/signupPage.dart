@@ -20,10 +20,16 @@ class _RegisterState extends State<Register> {
   //String userName = '';
   String emailId = '';
   String password = '';
+  String city = '';
+  String mobile = '';
+  String fullName = '';
 
   //TextEditingController userNameController = TextEditingController();
   TextEditingController emailIdController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
+  TextEditingController fullNameController = TextEditingController();
+  TextEditingController mobileController = TextEditingController();
+  TextEditingController cityController = TextEditingController();
 
   create() async {
     User? user = (await auth.createUserWithEmailAndPassword(
@@ -47,6 +53,9 @@ class _RegisterState extends State<Register> {
     DataBase.insertData(
       emailIdController.text,
       passwordController.text,
+      fullNameController.text,
+      mobileController.text,
+      cityController.text,
     ).then((value) {
       setState(() {});
     });
@@ -74,173 +83,82 @@ class _RegisterState extends State<Register> {
           body: Padding(
             padding: const EdgeInsets.all(20.0),
             child: Center(
-              child: Column(
-                children: [
-                  // TextField(
-                  //   controller: userNameController,
-                  //   decoration: InputDecoration(
-                  //     hintText: 'Enter User Name',
-                  //     labelText: 'User Name',
-                  //     floatingLabelBehavior: FloatingLabelBehavior.auto,
-                  //     floatingLabelAlignment: FloatingLabelAlignment.center,
-                  //     focusedBorder: OutlineInputBorder(
-                  //       borderRadius: BorderRadius.circular(15.0),
-                  //       borderSide: const BorderSide(
-                  //         color: Colors.blue,
-                  //         width: 3,
-                  //       ),
-                  //     ),
-                  //     border: OutlineInputBorder(
-                  //         borderRadius: BorderRadius.circular(15.0),
-                  //         borderSide: const BorderSide(
-                  //           color: Colors.black,
-                  //           width: 3,
-                  //         )),
-                  //   ),
-                  // ),
-                  Text(
-                    'Sign Up',
-                    style: TextStyle(
-                      fontSize: 30,
-                    ),
-                  ),
-                  SizedBox(
-                    height: 20,
-                  ),
-                  TextField(
-                    controller: emailIdController,
-                    decoration: InputDecoration(
-                      hintText: 'Enter Email',
-                      labelText: 'Email-ID',
-                      labelStyle: TextStyle(color: Colors.white60),
-                      floatingLabelBehavior: FloatingLabelBehavior.auto,
-                      floatingLabelAlignment: FloatingLabelAlignment.center,
-                      focusedBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(15.0),
-                        borderSide: const BorderSide(
-                          color: Colors.black,
-                          width: 1,
-                        ),
+              child: SingleChildScrollView(
+                child: Column(
+                  children: [
+                    const Text(
+                      'Sign Up',
+                      style: TextStyle(
+                        fontSize: 30,
                       ),
-                      border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(15.0),
-                          borderSide: const BorderSide(
-                            color: Colors.black,
-                            width: 3,
-                          )),
                     ),
-                  ),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  TextField(
-                    controller: passwordController,
-                    decoration: InputDecoration(
-                      hintText: 'Enter Password',
-                      labelText: 'Password',
-                      labelStyle: TextStyle(color: Colors.white60),
-                      floatingLabelBehavior: FloatingLabelBehavior.auto,
-                      floatingLabelAlignment: FloatingLabelAlignment.center,
-                      focusedBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(15.0),
-                        borderSide: const BorderSide(
-                          color: Colors.black,
-                          width: 1,
-                        ),
-                      ),
-                      border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(15.0),
-                          borderSide: const BorderSide(
-                            color: Colors.black,
-                            width: 3,
-                          )),
+                    const SizedBox(
+                      height: 10,
                     ),
-                  ),
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  // Container(
-                  //   decoration: BoxDecoration(
-                  //   ),
-                  //   child: Row(
-                  //     mainAxisAlignment: MainAxisAlignment.center,
-                  //     children: [
-                  //       Text('Role : ',style: TextStyle(fontSize: 17),),
-                  //       DropdownButton<String>(
-                  //         value: role,
-                  //         icon: const Icon(Icons.arrow_downward),
-                  //         elevation: 16,
-                  //         style: const TextStyle(color: Colors.deepPurple),
-                  //         // underline: Container(
-                  //         //
-                  //         //   height: 2,
-                  //         //   color: Colors.deepPurpleAccent,
-                  //         // ),
-                  //         onChanged: (String? newValue) {
-                  //           setState(() {
-                  //             role = newValue!;
-                  //           });
-                  //         },
-                  //         items: <String>[
-                  //           'Admin',
-                  //           'User',
-                  //         ].map<DropdownMenuItem<String>>((String value) {
-                  //           return DropdownMenuItem<String>(
-                  //             value: value,
-                  //             child: Text(value),
-                  //           );
-                  //         }).toList(),
-                  //       ),
-                  //
-                  //     ],
-                  //   ),
-                  // ),
-                  MaterialButton(
-                    onPressed: () {
-                      emailIdController.text.isNotEmpty &&
-                              passwordController.text.isNotEmpty
-                          ? {isSubmited(),create()}
-                          : showDialog(
-                              context: context,
-                              builder: (context) => AlertDialog(
-                                    alignment: Alignment.center,
-                                    actions: [
-                                      Text('Enter Email and Password'),
-                                      Container(
-                                        color: Colors.blue,
-                                        child: MaterialButton(
-                                          onPressed: () {
-                                            Navigator.pop(context);
-                                          },
-                                          child: Text('OK'),
+                    input(fullNameController,'Enter Full Name','Full Name'),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    input(emailIdController,'Enter Email','Email-ID'),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    input(passwordController,'Enter Password','Password'),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    input(mobileController,'Enter Mobile','Mobile No.'),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    input(cityController,'Enter City','City'),
+                    MaterialButton(
+                      onPressed: () {
+                        emailIdController.text.isNotEmpty &&
+                                passwordController.text.isNotEmpty
+                            ? {isSubmited(),create()}
+                            : showDialog(
+                                context: context,
+                                builder: (context) => AlertDialog(
+                                      alignment: Alignment.center,
+                                      actions: [
+                                        const Text('Enter Email and Password'),
+                                        Container(
+                                          color: Colors.blue,
+                                          child: MaterialButton(
+                                            onPressed: () {
+                                              Navigator.pop(context);
+                                            },
+                                            child:const Text('OK'),
+                                          ),
                                         ),
-                                      ),
-                                    ],
-                                  ));
-                    },
-                    color: Colors.white10,
-                    child: const Text(
-                      'Submit',
-                      style: TextStyle(
-                        color: Colors.white54,
-                        fontWeight: FontWeight.bold,
+                                      ],
+                                    ));
+                      },
+                      color: Colors.white10,
+                      child: const Text(
+                        'Submit',
+                        style: TextStyle(
+                          color: Colors.white54,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
                     ),
-                  ),
-                  MaterialButton(
-                    onPressed: () {
-                      Navigator.pop(context);
-                    },
-                    color: Colors.white10,
-                    child: const Text(
-                      'Back',
-                      style: TextStyle(
-                        color: Colors.white54,
-                        fontWeight: FontWeight.bold,
+                    MaterialButton(
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
+                      color: Colors.white10,
+                      child: const Text(
+                        'Back',
+                        style: TextStyle(
+                          color: Colors.white54,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
           ),
@@ -248,4 +166,30 @@ class _RegisterState extends State<Register> {
       ),
     );
   }
+}
+
+Widget input(type,hintText,labelText) {
+  return TextField(
+    controller: type,
+    decoration: InputDecoration(
+      hintText: hintText,
+      labelText: labelText,
+      labelStyle: const TextStyle(color: Colors.white60),
+      floatingLabelBehavior: FloatingLabelBehavior.auto,
+      floatingLabelAlignment: FloatingLabelAlignment.center,
+      focusedBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(15.0),
+        borderSide: const BorderSide(
+          color: Colors.black,
+          width: 1,
+        ),
+      ),
+      border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(15.0),
+          borderSide: const BorderSide(
+            color: Colors.black,
+            width: 3,
+          )),
+    ),
+  );
 }

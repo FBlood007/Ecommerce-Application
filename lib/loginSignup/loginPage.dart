@@ -12,7 +12,10 @@ import '../homeScreen/homeScreen.dart';
 
 class LoginPage extends StatefulWidget {
   LoginPage({Key? key}) : super(key: key);
-
+  static String eid = '';
+  static String mobile = '';
+  static String name = '';
+  static String city = '';
   @override
   State<LoginPage> createState() => _LoginPageState();
 }
@@ -21,10 +24,12 @@ class _LoginPageState extends State<LoginPage> {
   String emailId = '';
   String password = '';
   String selectedDataKey = '';
+  bool pass = true;
 
   TextEditingController emailIdController = TextEditingController();
-
   TextEditingController passwordController = TextEditingController();
+
+
   CollectionReference users = FirebaseFirestore.instance.collection('users');
   bool _success = false;
 
@@ -102,7 +107,7 @@ class _LoginPageState extends State<LoginPage> {
                 TextFormField(
                   controller: emailIdController,
                   decoration: InputDecoration(
-                    prefixIcon: Icon(Icons.email),
+                    prefixIcon: Icon(Icons.email,color: Colors.white,),
                     hintText: 'Email-Id',
                     labelText: 'Email-Id',
                     labelStyle: const TextStyle(color: Colors.white54),
@@ -133,7 +138,7 @@ class _LoginPageState extends State<LoginPage> {
                     color: Colors.black,
                   ),
                   decoration: InputDecoration(
-                    prefixIcon: Icon(Icons.password),
+                    prefixIcon: Icon(Icons.password,color: Colors.white,),
                     hintText: 'Password',
                     labelText: 'Password',
                     labelStyle: TextStyle(color: Colors.white54),
@@ -153,14 +158,24 @@ class _LoginPageState extends State<LoginPage> {
                         width: 3,
                       ),
                     ),
+                    suffixIcon: IconButton(
+                      icon:  Icon(pass? Icons.visibility_off : Icons.visibility,color: Colors.white,) ,
+                      onPressed: (){
+                        setState(() {
+                          pass = !pass;
+                        });
+                      },
+                    ),
                   ),
+                  obscureText: pass,
                 ),
                 MaterialButton(
                   onPressed: () async {
                     //DataBase.data.contains(emailIdController.text);
                     // roleCheck();
+                    FocusScope.of(context).unfocus();
                     MobileDatabase.selectData();
-                    login();
+                    await login();
                     // print(_success);
                     // _success
                     //     ? null

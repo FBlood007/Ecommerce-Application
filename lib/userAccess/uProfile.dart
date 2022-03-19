@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutterfinalproject/firebaseConnection/loginDatabase.dart';
 
 import '../loginSignup/loginPage.dart';
 
@@ -55,17 +56,15 @@ class UserProfile extends StatelessWidget {
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text('Name : User',style: text()),
+                      Text('Name : ${DataBase.user['fullName']}',style: text()),
                       const SizedBox(height: 10,),
-                      Text('Email-Id : user@gmail.com',style: text()),
+                      Text('Email-Id : ${DataBase.user['email']}',style: text()),
                       const SizedBox(height: 10,),
-                      Text('Address : Pune',style: text()),
+                      Text('City : ${DataBase.user['city']} ',style: text()),
                       const SizedBox(height: 10,),
-                      Text('Mobile : 9881974974',style: text()),
+                      Text('Mobile : ${DataBase.user['mobile']}',style: text()),
                     ],
                   ),
-
-
                 ],
               ),
             ),
