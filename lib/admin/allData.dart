@@ -122,7 +122,7 @@ class _AllDataState extends State<AllData> {
       child: Scaffold(
         key: sKey,
         appBar: AppBar(
-          title: Text('Welcom Admin'),
+          title: Text('Product Category'),
           centerTitle: true,
           leading: Row(
             children: [

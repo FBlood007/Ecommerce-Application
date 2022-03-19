@@ -20,7 +20,7 @@ class UserProfile extends StatelessWidget {
               },
               child:const Icon(
                 Icons.keyboard_backspace_outlined,
-                color: Colors.blue,
+                color: Colors.red,
                 size: 30,
               ),
             ),
@@ -32,7 +32,7 @@ class UserProfile extends StatelessWidget {
                 },
                 child:const Icon(
                   Icons.logout,
-                  color: Colors.blue,
+                  color: Colors.red,
                 ),
               ),
               const SizedBox(width: 20.0),
@@ -40,7 +40,7 @@ class UserProfile extends StatelessWidget {
             title: const Text(
               'Profile',
               style: TextStyle(
-                  color: Colors.blue, fontWeight: FontWeight.bold),
+                  color: Colors.red, fontWeight: FontWeight.bold),
             ),
           ),
         body: Center(
